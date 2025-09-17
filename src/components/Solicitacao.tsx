@@ -2,10 +2,23 @@ import Button from "./Button";
 import DropDown from "./DropDown";
 
 function Solicitacao() {
+  const firstLetterCapitalize = (word: string) => {};
+
+  console.log(firstLetterCapitalize("vitru"));
+
   return (
     <div>
       <div className="flex">
-        <DropDown />
+        <DropDown
+          title="Status"
+          options={[
+            "Pendente",
+            "Ativa",
+            "Desenvolvimento",
+            "Aprovada",
+            "Salvo Local",
+          ]}
+        />
         {/* <Button>
           Status: <span>Pendente</span>
         </Button>
