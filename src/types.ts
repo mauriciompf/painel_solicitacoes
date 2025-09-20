@@ -1,4 +1,4 @@
 export interface DropDownType {
-  title: string;
+  label: string;
   options: string[];
 }

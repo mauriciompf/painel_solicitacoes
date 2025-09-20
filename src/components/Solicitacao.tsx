@@ -1,42 +1,39 @@
-import Button from "./Button";
+import { dropDownsData } from "../data";
 import DropDown from "./DropDown";
+import Input from "./Input";
 
 function Solicitacao() {
-  const firstLetterCapitalize = (word: string) => {};
-
-  console.log(firstLetterCapitalize("vitru"));
+  console.log(Object.keys(dropDownsData));
 
   return (
     <div>
-      <div className="flex">
-        <DropDown
-          title="Status"
-          options={[
-            "Pendente",
-            "Ativa",
-            "Desenvolvimento",
-            "Aprovada",
-            "Salvo Local",
-          ]}
-        />
-        {/* <Button>
-          Status: <span>Pendente</span>
-        </Button>
-        <Button>
-          Tipo: <span>Padrão</span>
-        </Button>
-        <Button>
-          Data: <span>Hoje</span>
-        </Button> */}
+      <div className="mt-4 flex gap-1 py-2">
+        {/* <DropDown label="status" options={statusTrilha} />
+        <DropDown label="cód. disciplina" options={tipoTrilha} />
+        <DropDown label="data" options={dataTrilha} /> */}
+
+        {/* {dropDownsData.map((dropDownData) => (
+          <DropDown key={dropDownData.id} label={Object.keys(dropDownData)} options={dropDownData.} />
+        ))} */}
       </div>
 
-      <div>
+      <div className="mt-4 grid gap-[10px]">
+        <Input label="cód. sydle:" maxLength={14} />
+        <Input label="cód. disc.:" maxLength={6} />
+        <Input label="link disc.:" />
+
+        {/* <div>
+          <span>id:</span>
+          <span>1111</span>
+        </div> */}
+
+        {/* 
         <div>
           <span>Cód. Sydle: </span>
           <span>22025090322666</span>
-        </div>
+        </div> */}
 
-        <div>
+        {/* <div>
           <span>Cód. Disciplina:</span>
           <span>115270</span>
         </div>
@@ -44,16 +41,16 @@ function Solicitacao() {
         <div>
           <span>Link Disc.:</span>
           <span>.../pos/156971</span>
-        </div>
-
+        </div> */}
+        {/* 
         <div>
           <span>id:</span>
           <span>1111</span>
-        </div>
+        </div> */}
       </div>
 
       <div>
-        <Button>Adicionar nova solicitação</Button>
+        {/* <Button>Adicionar nova solicitação</Button>
 
         <div>
           <span>Padrão</span>
@@ -68,12 +65,12 @@ function Solicitacao() {
         <div>
           <span>Padrão</span>
           <span>50%</span>
-        </div>
+        </div> */}
 
         {/* HR */}
-        <div></div>
+        {/* <div></div>
 
-        <p>Total de Tickets: 100</p>
+        <p>Total de Tickets: 100</p> */}
       </div>
     </div>
   );

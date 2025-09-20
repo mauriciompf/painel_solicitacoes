@@ -1,10 +1,7 @@
 import { describe, it, expect } from "vitest";
+import { firstLetterCapitalize } from "../utils/firstLetterCapitalize";
 
-const firstLetterCapitalize = (word: string) => {
-  return word;
-};
-
-describe("FirstLetterUppercase", () => {
+describe("firstLetterUppercase", () => {
   it("should uppercase the first letter of the word 'vitru'", () => {
     expect(firstLetterCapitalize("vitru")).toBe("Vitru");
   });
