@@ -3,18 +3,16 @@ import DropDown from "./DropDown";
 import Input from "./Input";
 
 function Solicitacao() {
-  console.log(Object.keys(dropDownsData));
-
   return (
-    <div>
+    <form>
       <div className="mt-4 flex gap-1 py-2">
-        {/* <DropDown label="status" options={statusTrilha} />
-        <DropDown label="cód. disciplina" options={tipoTrilha} />
-        <DropDown label="data" options={dataTrilha} /> */}
-
-        {/* {dropDownsData.map((dropDownData) => (
-          <DropDown key={dropDownData.id} label={Object.keys(dropDownData)} options={dropDownData.} />
-        ))} */}
+        {dropDownsData.map((dropDownData) => (
+          <DropDown
+            key={dropDownData.id}
+            label={dropDownData.label}
+            options={dropDownData.options}
+          />
+        ))}
       </div>
 
       <div className="mt-4 grid gap-[10px]">
@@ -72,7 +70,7 @@ function Solicitacao() {
 
         <p>Total de Tickets: 100</p> */}
       </div>
-    </div>
+    </form>
   );
 }
 

@@ -1,30 +1,41 @@
-interface DropDownsData {
-  id: number;
-  status?: string[];
-  tipo?: string[];
-  data?: string[];
-}
+import type { DropDownsData, SubOptions } from "./types";
 
 export const dropDownsData: DropDownsData[] = [
   {
     id: 0,
-    status: ["pendente", "ativa", "desenvolvimento", "aprovada", "salvo local"],
+    label: "status",
+    options: [
+      "pendente",
+      "ativa",
+      "desenvolvimento",
+      "aprovada",
+      "salvo local",
+    ],
   },
   {
     id: 1,
-    tipo: ["padrão", "pós", "plano de aula"],
+    label: "tipo",
+    options: ["padrão", "pós", "plano de aula"],
   },
   {
     id: 2,
-    data: ["hoje", "amanhã", "outra data"],
+    label: "data",
+    options: ["hoje", "amanhã", "outra data"],
   },
 ];
 
-// export const inputs = [
-//     {
-//         label: "Cód. Sydle:",
-//     },
-//     {
-
-//     }
-// ]
+export const subOptions: SubOptions[] = [
+  {
+    id: 0,
+    optionName: "padrão",
+    subOptions: [
+      "imersão profissional",
+      "experiência profissional",
+      "prática pedagógica",
+      "estágio supervisionado",
+      "estágio curricular",
+      "seminário interdisciplinar",
+      "outros",
+    ],
+  },
+];
