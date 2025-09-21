@@ -2,20 +2,21 @@ import clsx from "clsx";
 import type { DropDownType } from "../types";
 import { firstLetterCapitalize } from "../utils/firstLetterCapitalize";
 import { firstLetterCapitalizeArray } from "../utils/firstLetterCapitalizeArray";
-import { useState, type ChangeEvent } from "react";
+import { useRef, useState, type ChangeEvent } from "react";
 import { dropDownsData, subOptions } from "../data";
 
 function DropDown({ label, options }: DropDownType) {
-  const [currentOption, setCurrentOption] = useState("padrão");
-
+  const subOptionWrapRef = useRef<HTMLUListElement | null>(null);
   const [isMouseEnter, setIsMouseEnter] = useState(false);
   const [isMouseEnterOption, setMouseEnterOption] = useState(false);
 
-  // console.log(dropDownsData.map((e) => e.label));
+  const labels = dropDownsData.map((e) => e.label);
 
-  const handleOnClick = (e: Event) => {
-    // const value =  e.current.value
-  };
+  const [dropDowns, setDropDowns] = useState({
+    status: "Pendente",
+    tipo: "Padrão",
+    data: "Hoje",
+  });
 
   const handleOnMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
     setIsMouseEnter(false);
@@ -27,8 +28,8 @@ function DropDown({ label, options }: DropDownType) {
 
   const handleOnMouseOver = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
-    // console.log(e);
   };
+
   const onMouseEnterOption = (
     e: React.MouseEvent<HTMLElement>,
     option: any,
@@ -38,22 +39,32 @@ function DropDown({ label, options }: DropDownType) {
     }
   };
 
-  function SubOptions() {
-    return (
-      <div className="absolute left-3 bg-black p-2 text-red-500">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-        consequuntur vitae incidunt? Mollitia, nostrum ipsa rerum iste fugiat
-        sequi et adipisci? Numquam, sunt? Cupiditate soluta nulla veniam
-        voluptates tenetur. Voluptatem!
-      </div>
-    );
-  }
+  const onMouseLeaveOption = (
+    e: React.MouseEvent<HTMLElement>,
+    option: any,
+  ) => {
+    if (option !== "Padrão") {
+      setMouseEnterOption(false);
+    }
+  };
+
+  const onMouseEnterSubOption = (e: React.MouseEvent<HTMLElement>) => {};
+
+  const handleOnClickOption = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    option: any,
+  ) => {
+    e.preventDefault();
+    setIsMouseEnter(false);
+
+    setDropDowns({ status: option });
+  };
 
   return (
     <>
       <div
         className={clsx(
-          "relative flex w-full justify-between rounded-[5px] bg-white p-2 text-[18px] text-black select-none",
+          "flex w-full items-center justify-between gap-2 rounded-[5px] bg-white p-2 text-[18px] text-black select-none",
         )}
       >
         <span className="font-semibold">{firstLetterCapitalize(label)}: </span>
@@ -61,40 +72,56 @@ function DropDown({ label, options }: DropDownType) {
         <div
           onMouseEnter={handleOnMouseEnter}
           onMouseLeave={handleOnMouseLeave}
-          onMouseOver={handleOnMouseOver}
-          className="absolute top-1 right-2 w-[160px] text-right"
+          className="relative w-[160px] text-right"
         >
           <button
             role="select"
-            className="w-full cursor-pointer rounded-sm bg-red-400 p-1 text-right font-bold"
+            className="w-full cursor-pointer rounded-sm bg-black p-1 text-center font-bold text-white"
           >
-            {firstLetterCapitalize(options[0])}
+            {dropDowns[label]}
           </button>
 
-          <ul className="relative">
+          <ul className="absolute top-8.5 left-7.5 z-10">
             {firstLetterCapitalizeArray(options).map(
               (option: string, index: number) => (
                 <li
                   onMouseEnter={(e) => onMouseEnterOption(e, option)}
+                  onMouseLeave={(e) => onMouseLeaveOption(e, option)}
+                  onMouseOver={(e) => handleOnMouseOver(e)}
                   role="option"
                   className={clsx(
                     { hidden: !isMouseEnter },
-                    "w-full cursor-pointer bg-red-300 p-1 font-bold",
+                    "w-[170px] cursor-pointer border-b-2 bg-black p-2 text-left font-bold text-white hover:bg-gray-400",
                   )}
                   key={index}
                   value={option}
                 >
-                  <button className="cursor-pointer">{option}</button>
+                  <button
+                    onClick={(e) => handleOnClickOption(e, option)}
+                    className="w-full cursor-pointer text-left"
+                  >
+                    {option}
+                  </button>
 
+                  {/* Sub Option */}
                   {isMouseEnterOption && (
-                    <ul className="absolute top-0 -right-100 bg-amber-400 p-2">
-                      {subOptions.map((subOption) => (
-                        <li className="w-fit" key={subOption.id}>
-                          {subOption.subOptions.map((subOptionName, index) => (
-                            <span key={index}>{subOptionName}</span>
-                          ))}
-                        </li>
-                      ))}
+                    <ul
+                      onMouseEnter={(e) => onMouseEnterSubOption(e)}
+                      ref={subOptionWrapRef}
+                      className="absolute top-0 -right-[242px] bg-black p-2 text-white"
+                    >
+                      {subOptions.map((subOptions) =>
+                        subOptions.subOptions.map((subOption, index) => (
+                          <li className="border-b-1 px-1 py-2" key={index}>
+                            <button
+                              // onClick={(e) => handleOnClickSubOption(e)}
+                              className={"cursor-pointer"}
+                            >
+                              {firstLetterCapitalize(subOption)}
+                            </button>
+                          </li>
+                        )),
+                      )}
                     </ul>
                   )}
                 </li>
